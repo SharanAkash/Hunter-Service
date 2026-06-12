@@ -1,0 +1,79 @@
+# AI Instructions for Hunter Service Project
+
+This file provides guidance for AI coding assistants (Claude, Cursor, GitHub Copilot, Cody, etc.)
+
+## Project Type
+Java API Test Automation Framework using Playwright
+
+## Key Technologies
+- Java 11, Maven, Playwright, TestNG, Cucumber, Jackson, Allure Reports
+
+## Critical Implementation Rules
+
+### 🚨 Playwright API - Most Common Mistake
+```java
+// ❌ NEVER DO THIS - Creates object toString() in URL
+String url = baseUrl + "?" + requestOptions;
+
+// ✅ ALWAYS DO THIS - Pass RequestOptions separately
+RequestOptions options = RequestOptions.create().setQueryParam("key", value);
+APIResponse response = apiRequestContext.get(url, options);
+```
+
+### Project Structure
+```
+src/main/java/
+  - Helaper/          # API helper classes
+  - constants/        # BaseUrl, EndPoint constants
+  - BuildingRequest/  # Request builders
+  - pojo/            # Data models
+  - com/hunter/utils/ # Utilities
+
+src/test/java/
+  - Validation/       # Response validators
+  - com/hunter/feature/ # Tests & step definitions
+```
+
+### Validation Pattern
+When comparing responses by ID:
+1. Find matching records by ID
+2. Validate ALL fields (not just ID)
+3. Use descriptive assertion messages
+4. Log validation progress
+
+### Code Standards
+- All API calls through Helper classes
+- All validations in Validation classes
+- Jackson ObjectMapper for JSON
+- TestNG assertions with context
+- Allure reporting for every API call
+- CSV files for test data
+
+### Naming Conventions
+- Classes: PascalCase
+- Methods: camelCase
+- Constants: UPPER_SNAKE_CASE
+- Packages: lowercase (with exceptions - maintain existing)
+
+## Before Making Changes
+1. Read complete files to understand context
+2. Check existing patterns and follow them
+3. Verify Playwright API usage patterns
+4. Ensure all validations are comprehensive
+5. Include logging and Allure reporting
+
+## Testing
+```bash
+mvn test                    # Run tests
+mvn allure:serve           # View reports
+mvn -Dtest=TestClass test  # Run specific test
+```
+
+## Questions to Ask
+- "Should I validate all fields or just specific ones?"
+- "Which CSV file should store this test data?"
+- "Should this use query parameters or request body?"
+- "What error scenarios need validation?"
+
+---
+*Read CLAUDE.md for comprehensive documentation*

@@ -1,0 +1,41 @@
+# Cursor AI Rules for Hunter Service
+
+## Project Context
+API test automation framework using Java 11, Playwright, TestNG, and Cucumber for testing GoREST API.
+
+## Critical Rules
+
+### 1. Playwright API Usage
+- NEVER concatenate RequestOptions objects to URL strings
+- Always pass RequestOptions as second parameter: `apiContext.get(url, options)`
+- Example: ❌ `url + "?" + requestOptions` | ✅ `apiContext.get(url, requestOptions)`
+
+### 2. Code Structure
+- API helpers in `Helaper/` package (note spelling)
+- Validations in `Validation/` package
+- Constants in `constants/` package
+- Follow existing package naming (some start with capital)
+
+### 3. Response Validation
+- Use Jackson ObjectMapper for JSON parsing
+- Validate ALL fields when comparing responses (id, name, email, gender, status)
+- Provide descriptive assertion messages with context
+- When validating by ID match, compare all other fields too
+
+### 4. Logging & Reporting
+- Every API call needs console logging + Allure reporting
+- Log: URL, curl command, status, response body
+- Use Allure.step() and Allure.addAttachment()
+
+### 5. Best Practices
+- Read entire file before editing
+- Maintain existing naming conventions exactly
+- Use TestNG assertions with clear messages
+- Handle JSON arrays with proper iteration
+- Store test data in CSV files under `data/`
+
+## Quick Reference
+- Java 11 syntax
+- Maven commands: `mvn test`, `mvn allure:serve`
+- Base URL: https://gorest.co.in/public/v2
+- Testing framework: TestNG + Cucumber
