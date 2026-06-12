@@ -41,7 +41,7 @@ public class GetUserApiTest {
         }
     }
 
-    @Test
+    @Test(testName = "Get User API Query Parameter Test", description = "Test to validate the Get User API response with query parameters")
     public void getUserApiQueryParameterTest() throws Exception {
 
         response = getUserApiHelper.getUserApiHelper();
